@@ -141,10 +141,7 @@
 #define HOLD_EFFECT_ADRENALINE_ORB   152
 #define HOLD_EFFECT_MEMORY           153
 #define HOLD_EFFECT_PLATE            154
-<<<<<<< HEAD
-=======
 #define HOLD_EFFECT_Z_CRYSTAL        155
->>>>>>> 88861abb29e8d12e6a8e5c13af2c29a3d88ccda9
 
 #define HOLD_EFFECT_CHOICE(holdEffect)((holdEffect == HOLD_EFFECT_CHOICE_BAND || holdEffect == HOLD_EFFECT_CHOICE_SCARF || holdEffect == HOLD_EFFECT_CHOICE_SPECS))
 
