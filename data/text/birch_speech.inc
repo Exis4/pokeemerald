@@ -7,7 +7,7 @@ gText_Birch_Welcome:: @ 82C897B
 	.string "$"
 
 gText_Birch_Pokemon:: @ 82C89FB
-	.string "This is what we call a “Pokémon.”\p"
+	.string "This is what we call a “Pokémon”.\p"
 	.string "\n"
 	.string "$"
 
