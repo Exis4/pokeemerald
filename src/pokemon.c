@@ -2768,6 +2768,7 @@ static const u8 sMonFrontAnimIdsTable[NUM_SPECIES - 1] =
     [SPECIES_ROTOM_FAN - 1]     = ANIM_FIGURE_8,
     [SPECIES_ROTOM_MOW - 1]     = ANIM_V_SQUISH_AND_BOUNCE,
     [SPECIES_ROTOM_WASH - 1]    = ANIM_V_SQUISH_AND_BOUNCE,
+
 };
 
 static const u8 sMonAnimationDelayTable[NUM_SPECIES - 1] =
