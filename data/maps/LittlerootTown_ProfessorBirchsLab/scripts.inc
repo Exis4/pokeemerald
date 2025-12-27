@@ -576,7 +576,8 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Rival::
 	faceplayer
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_RivalFuturePlans
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_RivalHaveYouGoneToBattleFrontier
-	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_RivalTakeBreakFromFieldwork
+	@goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_RivalTakeBreakFromFieldwork
+	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_MayEgg
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayWhereShouldIGoNext
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanWhereShouldIGoNext
@@ -992,3 +993,124 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MayEgg::
+	lock
+	faceplayer
+	goto_if_set FLAG_UNUSED_0x020, LittlerootTown_ProfessorBirchsLab_EventScript_RivalTakeBreakFromFieldwork
+	@msgbox LittlerootTown_ProfessorBirchsLab_Text_MayReceiveEgg, MSGBOX_DEFAULT
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayReceiveEgg
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanReceiveEgg
+	getpartysize
+	goto_if_eq VAR_RESULT, PARTY_SIZE, LittlerootTown_ProfessorBirchsLab_Text_NoRoomForEgg
+	setflag FLAG_UNUSED_0x020
+	playfanfare MUS_OBTAIN_ITEM
+	message LittlerootTown_ProfessorBirchsLab_Text_ReceivedTheEgg
+	waitfanfare
+	switch VAR_STARTER_MON
+	case 0, LittlerootTown_ProfessorBirchsLab_EventScript_GiveTorchic @ If starter is Treecko
+	case 1, LittlerootTown_ProfessorBirchsLab_EventScript_GiveMudkip @ If starter is Torchic
+	case 2, LittlerootTown_ProfessorBirchsLab_EventScript_GiveTreecko @ If starter is Mudkip
+	release
+	end
+
+@LittlerootTown_ProfessorBirchsLab_EventScript_RivalReceiveEgg::
+@	checkplayergender
+@	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_Text_MayReceiveEgg
+@	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanReceiveEgg
+@	release
+@	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MayReceiveEgg::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MayReceiveEgg, MSGBOX_DEFAULT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_BrendanReceiveEgg::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BrendanReceiveEgg, MSGBOX_DEFAULT
+	return
+
+LittlerootTown_ProfessorBirchsLab_Text_NoRoomForEgg::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_NoRoomForThisEgg, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GiveTreecko::
+	giveegg SPECIES_TREECKO
+	specialvar VAR_UNUSED_0x40F7 CalculatePlayerPartyCount
+	setmodernfatefulencounter VAR_UNUSED_0x40F7
+	setmonmetlocation VAR_UNUSED_0x40F7, METLOC_FATEFUL_ENCOUNTER
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeCare
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeCare
+	@msgbox LittlerootTown_ProfessorBirchsLab_Text_MayTakeCare, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GiveTorchic::
+	giveegg SPECIES_TORCHIC
+	specialvar VAR_UNUSED_0x40F7 CalculatePlayerPartyCount
+	setmodernfatefulencounter VAR_UNUSED_0x40F7
+	setmonmetlocation VAR_UNUSED_0x40F7, METLOC_FATEFUL_ENCOUNTER
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeCare
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeCare
+	@msgbox LittlerootTown_ProfessorBirchsLab_Text_MayTakeCare, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_GiveMudkip::
+	giveegg SPECIES_MUDKIP
+	specialvar VAR_UNUSED_0x40F7 CalculatePlayerPartyCount
+	setmodernfatefulencounter VAR_UNUSED_0x40F7
+	setmonmetlocation VAR_UNUSED_0x40F7, METLOC_FATEFUL_ENCOUNTER
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeCare
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeCare
+	@msgbox LittlerootTown_ProfessorBirchsLab_Text_MayTakeCare, MSGBOX_DEFAULT
+	release
+	end
+
+
+LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeCare::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_MayTakeCare, MSGBOX_DEFAULT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeCare::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BrendanTakeCare, MSGBOX_DEFAULT
+	return
+
+
+
+LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedEgg::
+	msgbox LittlerootTown_ProfessorBirchsLab_EventScript_MayTakeBreakFromFieldwork, MSGBOX_DEFAULT
+	release
+	end
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+LittlerootTown_ProfessorBirchsLab_Text_MayReceiveEgg:
+	.string "MAY: By the way {PLAYER}{KUN}.\p"
+	.string "Here's my gift for becoming the\n"
+	.string "CHAMPION.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_MayTakeCare:
+	.string "MAY: Take care of it, {PLAYER}{KUN}!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BrendanReceiveEgg:
+	.string "BRENDAN: Hey, {PLAYER}.\p"
+	.string "Here, take this.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BrendanTakeCare:
+	.string "BRENDAN: This may help you to fill your\n"
+	.string "POKéDEX.\p"
+	.string "Take care of it!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_ReceivedTheEgg:
+	.string "{PLAYER} received an EGG.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_NoRoomForThisEgg:
+	.string "Oh? You've too many POKéMON.\p"
+	.string "Come back when you have enough room.$"

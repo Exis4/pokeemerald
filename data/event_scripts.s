@@ -42,6 +42,7 @@
 #include "constants/party_menu.h"
 #include "constants/pokemon.h"
 #include "constants/roulette.h"
+#include "constants/region_map_sections.h"
 #include "constants/script_menu.h"
 #include "constants/secret_bases.h"
 #include "constants/songs.h"
